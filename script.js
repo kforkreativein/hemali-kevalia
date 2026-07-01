@@ -73,6 +73,26 @@ function scrollCarousel(dir) {
   grid.scrollBy({ left: dir * step, behavior: 'smooth' });
 }
 
+// Auto-scroll carousel every 2 seconds
+const resultsGrid = document.getElementById('resultsCarousel');
+if (resultsGrid) {
+  let autoScrollInterval;
+
+  function startAutoScroll() {
+    autoScrollInterval = setInterval(() => scrollCarousel(1), 2000);
+  }
+
+  function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+  }
+
+  startAutoScroll();
+
+  // Pause on hover, resume on mouse leave
+  resultsGrid.addEventListener('mouseenter', stopAutoScroll);
+  resultsGrid.addEventListener('mouseleave', startAutoScroll);
+}
+
 // Hide WA float when footer is visible
 const waFloat = document.querySelector('.wa-float');
 const footer  = document.getElementById('footer');
